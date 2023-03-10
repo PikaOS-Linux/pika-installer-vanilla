@@ -5,7 +5,7 @@
     <child>
       <object class="AdwPreferencesGroup">
         <property name="title" translatable="true">Disk Allocation</property>
-        <property name="description" translatable="true">Choose how to install Vanilla OS on your drive.</property>
+        <property name="description" translatable="true">Choose how to install PikaOS on your drive.</property>
         <child>
           <object class="AdwActionRow" id="entire_disk_row">
             <property name="title" translatable="true">Entire Disk</property>
@@ -37,7 +37,7 @@
       <object class="AdwPreferencesGroup" id="open_gparted_group">
         <child>
           <object class="AdwActionRow" id="open_gparted_row">
-            <property name="icon-name">vanilla-installer-harddisk-symbolic</property>
+            <property name="icon-name">drive-harddisk-symbolic</property>
             <property name="title" translatable="true">Open GParted</property>
             <property name="subtitle" translatable="true">Open GParted to manually partition the disk</property>
             <child type="suffix">
@@ -58,7 +58,7 @@
     <child>
       <object class="AdwPreferencesGroup" id="boot_part">
         <property name="title" translatable="true">Boot Partition</property>
-        <property name="description" translatable="true">The partition to mount under “/boot”. This directory stores files for booting in Vanilla OS.</property>
+        <property name="description" translatable="true">The partition to mount under “/boot”. This directory stores files for booting in PikaOS.</property>
         <child>
           <object class="AdwExpanderRow" id="boot_part_expand">
             <property name="title" translatable="true">No partition selected</property>
@@ -142,7 +142,7 @@
     <child>
       <object class="AdwPreferencesGroup" id="root_part">
         <property name="title" translatable="true">Root Partition</property>
-        <property name="description" translatable="true">The partition to mount under “/”.</property>
+        <property name="description" translatable="true">The partition to mount under “/”. This directory stores the entire OS.</property>
         <child>
           <object class="AdwExpanderRow" id="root_part_expand">
             <property name="title" translatable="true">No partition selected</property>
@@ -163,7 +163,7 @@
     <child>
       <object class="AdwPreferencesGroup" id="swap_part">
         <property name="title" translatable="true">Swap partition</property>
-        <property name="description" translatable="true">Swap acts as a virtual extension of your RAM and enables hibernation. Vanilla OS already uses zram to provide swapping at no storage cost.</property>
+        <property name="description" translatable="true">Swap acts as a virtual extension of your RAM and enables hibernation. PikaOS already uses zram to provide swapping at no storage cost.</property>
         <child>
           <object class="AdwActionRow">
             <property name="title" translatable="true">Swap partition</property>

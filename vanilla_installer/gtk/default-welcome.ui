@@ -15,7 +15,7 @@
                         <property name="halign">center</property>
                         <child>
                             <object class="GtkImage">
-                                <property name="icon-name">vanilla-logo-text</property>
+                                <property name="icon-name">pika-logo-text</property>
                                 <property name="pixel-size">192</property>
                             </object>
                         </child>
@@ -42,7 +42,7 @@
                                                 <property name="halign">center</property>
                                                 <child>
                                                     <object class="GtkImage">
-                                                        <property name="icon-name">vanilla-installer-display-with-window-symbolic</property>
+                                                        <property name="icon-name">drive-optical-symbolic</property>
                                                         <property name="pixel-size">74</property>
                                                     </object>
                                                 </child>
@@ -77,7 +77,7 @@
                                                 <property name="halign">center</property>
                                                 <child>
                                                     <object class="GtkImage">
-                                                        <property name="icon-name">vanilla-installer-harddisk-symbolic</property>
+                                                        <property name="icon-name">drive-harddisk-symbolic</property>
                                                         <property name="pixel-size">74</property>
                                                     </object>
                                                 </child>
