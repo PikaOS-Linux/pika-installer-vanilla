@@ -48,7 +48,7 @@
                                                 </child>
                                                 <child>
                                                     <object class="GtkLabel">
-                                                        <property name="label" translatable="yes">Try Vanilla OS</property>
+                                                        <property name="label" translatable="yes">Try PikaOS</property>
                                                         <style>
                                                             <class name="title-4"/>
                                                         </style>
@@ -83,7 +83,7 @@
                                                 </child>
                                                 <child>
                                                     <object class="GtkLabel">
-                                                        <property name="label" translatable="yes">Install Vanilla OS</property>
+                                                        <property name="label" translatable="yes">Install PikaOS</property>
                                                         <style>
                                                             <class name="title-4"/>
                                                         </style>
