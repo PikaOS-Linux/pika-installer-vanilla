@@ -208,7 +208,7 @@ class Processor:
                 f.write("\n")
                 f.write("echo 'Starting the post-installation process ...'\n")
                 f.write(
-                    "sudo vanilla-bootloader'{}' '{}'".format(
+                    "sudo vanilla-postrun'{}' '{}'".format(
                         json.dumps(finals_disk), json.dumps(finals_timezone)
                     )
                 )
