@@ -1,3 +1,4 @@
 recipe.json etc/vanilla-installer/
 installer.log etc/vanilla/
 vanilla-postrun usr/bin/
+vanilla-internal-postrun usr/bin/
