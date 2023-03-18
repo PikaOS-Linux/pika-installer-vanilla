@@ -7,7 +7,98 @@ import logging
 import argparse
 import json
 
-boot_device = subprocess.check_output(["df", "-P", "/boot"]).decode("utf-8").strip().split("\n",1)[1]
-print(boot_device)
+
+def find_partition_used_space(partition: str) -> int:
+    _part = "/dev/" + partition.split("/")[-1]
+    _uuid = str(uuid.uuid4())
+    subprocess.check_call(["mkdir", "-p", "/tmp/{}".format(_uuid)])
+    subprocess.check_call(["sudo", "mount", _part, "/tmp/{}".format(_uuid)])
+    _res = (
+        subprocess.check_output(["df", "/tmp/{}".format(_uuid)])
+        .decode("utf-8")
+        .splitlines()[1]
+        .split()
+    )
+    subprocess.check_call(["sudo", "umount", "-l", "/tmp/{}".format(_uuid)])
+    _used = int(_res[2])
+
+    return _used
+
+
+def get_uuid(partition):
+    logger.info("getting UUID for partition '{}'".format(partition))
+    return (
+        subprocess.check_output(["lsblk", "-no", "UUID", partition])
+        .decode("utf-8")
+        .strip()
+    )
+
+
+def label_partition(partition, label, fs=None):
+    logger.info("labeling partition '{}' with label '{}'".format(partition, label))
+
+    if fs is None:
+        fs = (
+            subprocess.check_output(["lsblk", "-no", "FSTYPE", partition])
+            .decode("utf-8")
+            .strip()
+        )
+
+    if fs == "btrfs":
+        subprocess.check_call(
+            ["sudo", "btrfs", "filesystem", "label", partition, label]
+        )
+    elif fs == "ext4":
+        subprocess.check_call(["sudo", "e2label", partition, label])
+    elif fs == "vfat":
+        subprocess.check_call(["sudo", "fatlabel", partition, label])
+    else:
+        raise Exception("Unsupported filesystem '{}'".format(fs))
+
+    return True
+
+
+def umount_if(mountpoint):
+    logger.info("unmounting '{}' if mounted".format(mountpoint))
+
+    if os.path.ismount(mountpoint):
+        subprocess.check_call(["sudo", "umount", "-l", mountpoint])
+
+
+def remove_uuid_from_fstab(root, uuid):
+    logger.info("removing UUID '{}' from fstab".format(uuid))
+    subprocess.check_call(
+        ["sudo", "sed", "-i", "/UUID={}/d".format(uuid), root + "/etc/fstab"]
+    )
+
+def add_bind_mount_to_fstab(src, dest, root):
+    fstab_path = root + "/etc/fstab"
+    bind_mount = "{} {} none bind 0 0\n".format(src, dest)
+    with open(fstab_path, "a") as f:
+        f.write(bind_mount)
+
+def add_bind_mount_to_fstab(src, dest, root):
+    fstab_path = root + "/etc/fstab"
+    bind_mount = "{} {} none bind 0 0\n".format(src, dest)
+    with open(fstab_path, "a") as f:
+        f.write(bind_mount)
+
+
+def update_grub(root, block_device, boot_partition, efi_partition=None):
+    logger.info("updating GRUB in '{}'".format(root))
+
+    umount_if(boot_partition)
+    if efi_partition:
+        umount_if(efi_partition)
+
+    subprocess.check_call(["sudo", "mount", boot_partition, root + "/boot"])
+    if efi_partition:
+        subprocess.check_call(["sudo", "mount", efi_partition, root + "/boot/efi"])
+    subprocess.check_call(["sudo", "mount", "--bind", "/dev", root + "/dev"])
+    subprocess.check_call(["sudo", "mount", "--bind", "/dev/pts", root + "/dev/pts"])
+    subprocess.check_call(["sudo", "mount", "--bind", "/proc", root + "/proc"])
+    subprocess.check_call(["sudo", "mount", "--bind", "/sys", root + "/sys"])
+    subprocess.check_call(["sudo", "mount", "--bind", "/run", root + "/run"])
+    subprocess.check_call(["sudo", "chroot", "{}", "/usr/bin/vanilla-internal-postrun"])
 
 sys.exit(0)
