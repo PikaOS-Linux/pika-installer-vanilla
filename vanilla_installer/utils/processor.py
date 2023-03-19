@@ -66,7 +66,7 @@ class Processor:
             "-r",
             f"'{manifest_remove}'",
             "-h",
-            "'vanilla'",
+            "'pika'",
         ]
 
         is_almost_supported = False

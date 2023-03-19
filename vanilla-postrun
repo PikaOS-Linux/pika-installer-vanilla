@@ -99,6 +99,7 @@ def update_grub(root, block_device, boot_partition, efi_partition=None):
     subprocess.check_call(["sudo", "mount", "--bind", "/proc", root + "/proc"])
     subprocess.check_call(["sudo", "mount", "--bind", "/sys", root + "/sys"])
     subprocess.check_call(["sudo", "mount", "--bind", "/run", root + "/run"])
+    subprocess.check_call(["sudo", "cp", "-rvf", "/cdrom/pool/main/*", root + "/var/cache/apt/archives/"])
     subprocess.check_call(["sudo", "chroot", "{}", "/usr/bin/vanilla-internal-postrun"])
 
 sys.exit(0)
