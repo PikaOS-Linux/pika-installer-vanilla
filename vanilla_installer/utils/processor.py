@@ -51,7 +51,7 @@ class Processor:
     def gen_install_script(log_path, pre_run, post_run, finals):
         logger.info("processing the following final data: %s", finals)
 
-        # manifest_remove = "/cdrom/casper_pika/filesystem.manifest-remove"
+        # manifest_remove = "/cdrom/casper/filesystem.manifest-remove"
         # if not os.path.exists(manifest_remove):
         manifest_remove = "/tmp/filesystem.manifest-remove"
         with open(manifest_remove, "w") as f:
@@ -62,7 +62,7 @@ class Processor:
             "sudo",
             "distinst",
             "-s",
-            "'/cdrom/casper_pika/filesystem.squashfs'",
+            "'/cdrom/casper/filesystem.squashfs'",
             "-r",
             f"'{manifest_remove}'",
             "-h",
