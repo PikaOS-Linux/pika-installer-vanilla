@@ -108,7 +108,7 @@ class Processor:
                         ]
                         arguments += [
                             "-n",
-                            f"'{device_block}:primary:512M:2048M:fat32:mount=/boot/efi:flags=bls_boot'",
+                            f"'{device_block}:primary:512M:2048M:ext4:mount=/boot:flags=bls_boot'",
                         ]
                         arguments += [
                             "-n",
@@ -125,7 +125,7 @@ class Processor:
                             "mp": "/boot/efi",
                         }
                         finals_disk["disk"][f"{partition_name}2"] = {
-                            "fs": "fat32",
+                            "fs": "ext4",
                             "mp": "/boot",
                         }
                         finals_disk["disk"][f"{partition_name}3"] = {
