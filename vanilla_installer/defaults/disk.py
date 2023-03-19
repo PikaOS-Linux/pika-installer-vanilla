@@ -263,7 +263,7 @@ class PartitionSelector(Adw.PreferencesPage):
             if "efi_part_expand" in self.__selected_partitions:
                 del self.__selected_partitions["efi_part_expand"]
 
-        self.__root_part_rows = self.__generate_partition_list_widgets(self.root_part_expand, "btrfs", False)
+        self.__root_part_rows = self.__generate_partition_list_widgets(self.home_part_expand)
         for i, widget in enumerate(self.__root_part_rows):
             self.root_part_expand.add_row(widget)
             widget.add_siblings(self.__root_part_rows[:i] + self.__root_part_rows[i+1:])
